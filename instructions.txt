@@ -1,0 +1,45 @@
+fdisk /dev/disk
+# configure:
+#   1GiB boot ESP
+#   4GiB luks-swap -> swap
+#   Rest luks-root -> btrfs /
+# NOTE: MAKE SURE TO: `t 1 1` BEFORE `w`
+
+# setup install root
+cryptsetup luksFormat /dev/disk3
+# type pass
+cryptsetup open /the/disk3 luks-root
+mkfs.btrfs -L root /dev/mapper/luks-root
+mount /dev/mapper/luks-root /mnt
+cd /mnt
+# create basic subvols
+btrfs subvolume create var
+btrfs subvolume create home
+btrfs subvolume create root
+mkdir -m0700 -p root/secrets/{tinc,luks}
+
+# mount ESP
+mkdr boot
+mkfs.vfat -L BOOT /dev/disk1
+mount /dev/disk1 boot
+
+# setup swap now
+pwgen -s -c -n -1 1024 | tr -d '\n' > root/secrets/luks/swap.key
+cryptsetup luksFormat --key-file=root/secrets/luks/swap /the/disk2
+cryptsetup open --key-file=root/secrets/luks/swap /dev/disk2 luks-swap
+mkswap /dev/mapper/luks-swap
+swapon /dev/mapper/luks-swap
+
+# Now we can generate a hardware-configuraton.nix
+# this should autodetect most things we need
+nixos-generate-config --root /mnt
+
+nix-shell '<nixpkgs>' -p nixUnstable -p git
+git clone $this_repo
+vim /etc/nix/nix.conf
+# add experimental-features = nix-command flakes
+
+# actually install
+# --impure is required due to home-manager bug?
+# see: https://github.com/nix-community/home-manager/issues/2074
+nixos-install --impure --root /mnt --flake '.#machine-in-flake.nix'

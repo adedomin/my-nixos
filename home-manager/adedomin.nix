@@ -1,0 +1,51 @@
+{ config, lib, pkgs, ... }:
+
+{
+  imports = [
+    programs/dconf.nix
+    programs/firefox.nix
+    programs/foot.nix
+    programs/pass.nix
+    programs/syncthing.nix
+    programs/zsh.nix
+  ];
+
+  options.git = {
+    email = lib.mkOption {
+      type = lib.types.str;
+      description = "git: email to put on commits.";
+    };
+  };
+
+  config = {
+    home.stateVersion = "21.05";
+    programs.git = {
+      enable = true;
+      userName = "Anthony DeDominic";
+      userEmail = config.git.email;
+
+      aliases = {
+        check = "checkout";
+        st = "status";
+        log-files = "log --name-status";
+        merge-bisect = "merge --no-commit --no-ff";
+      };
+
+      lfs = {
+        enable = true;
+      };
+
+      extraConfig = {
+        pull.rebase = true;
+        checkout.defaultRemote = "origin";
+        init.defaultBranch = "release";
+	credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+	core.editor = "${pkgs.neovim}/bin/nvim";
+      };
+
+      attributes = [
+        "merge renameLimit=50000"
+      ];
+    };
+  };
+}
