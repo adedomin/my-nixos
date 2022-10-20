@@ -1,11 +1,14 @@
-{ ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.foot;
+in
 {
   options.foot = {
-    enable = mkEnableOption "Use Foo Terminal with config";
+    enable = lib.mkEnableOption "Use Foo Terminal with config";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.foot = {
       enable = true;
       settings = {

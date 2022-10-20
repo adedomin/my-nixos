@@ -7,6 +7,7 @@
     ./flakes.nix
     ./boot/firmware.nix
     ./boot/efi.nix
+    ./boot/wsl2.nix
     ./tinc.nix
     ./pc/de.nix
   ];
@@ -25,8 +26,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wget neovim htop git
-    foot alacritty # terminals I use, want termcaps
+    wget
+    neovim
+    htop
+    git
+    foot
+    alacritty # terminals I use, want termcaps
   ];
 
   nixpkgs.config.allowUnfree = false;

@@ -1,14 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware.nix
+  ];
+
+  wsl2.enable = true;
   nix.flakes.enable = true;
-
-  # this is WSLv2, no bootloader to configure.
-  # efi.enable = true;
-  # firmware.x86_64.enable = true;
-
   binbash.enable = true;
-
   networking.hostName = "DESKTOP-QC2H46P";
   # networking.firewall.allowedUDPPorts = [ 655 ];
   networking.firewall.allowedTCPPorts = [ 22 ];

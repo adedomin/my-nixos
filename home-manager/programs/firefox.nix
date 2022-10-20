@@ -1,12 +1,15 @@
 # intended to be invoked with home-manager
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  cfg = config.firefox;
+in
 {
   options.firefox = {
-    enable = mkEnableOption "Install and configure Wayland Firefox";
+    enable = lib.mkEnableOption "Install and configure Wayland Firefox";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

@@ -1,13 +1,17 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ lib, ... }:
+{ config, lib, ... }:
 
 with lib.hm.gvariant;
 
+let
+  cfg = config.dconf-settings;
+in
 {
-  options.dconf = {
-    enable = mkEnableOption "Use gnome 3 config";
+  options.dconf-settings = {
+    enable = lib.mkEnableOption "Use gnome 3 config";
   };
-  config = {
+
+  config = lib.mkIf cfg.enable {
     dconf.settings = {
       "org/gnome/desktop/calendar" = {
         show-weekdate = true;

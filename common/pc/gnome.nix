@@ -23,7 +23,7 @@ in {
       gnome3.eog    # image viewer
       gnome3.evince # pdf reader
       # desktop look & feel
-      gnome3.gnome-tweak-tool
+      gnome3.gnome-tweaks
     ];
     # for firefox integration
     services.gnome.chrome-gnome-shell.enable = true;
