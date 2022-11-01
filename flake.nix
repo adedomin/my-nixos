@@ -2,9 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
+  outputs = { nixpkgs, home-manager, nixos-wsl, ... }: {
 
     nixosConfigurations =
       let
@@ -13,6 +14,7 @@
             inherit system;
             modules = [
               path
+              nixos-wsl.nixosModules.wsl
               ./common/common.nix
               home-manager.nixosModules.home-manager
               {

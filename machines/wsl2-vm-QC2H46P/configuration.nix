@@ -5,6 +5,12 @@
     ./hardware.nix
   ];
 
+  wsl.enable = true;
+  wsl.nativeSystemd = true;
+  wsl.defaultUser = "adedomin";
+
+  # no hardware to update.
+  hardware.cpu.intel.updateMicrocode = false;
   wsl2.enable = true;
   nix.flakes.enable = true;
   binbash.enable = true;
@@ -15,6 +21,5 @@
   # networking.interfaces.eth0.useDHCP = true;
 
   required.password = "$6$aw6VMD7z/LRTYFYb$YyQsK.hTvRLP3JWmaKVMAhnUJyfiWP0epku7QbzhYR82SEe7EBmsTiKbttrijzn3FmyHCurAAvQRg98QsJMfM.";
-
   home-manager.users.adedomin.git.email = "adedomin@gmail.com";
 }
