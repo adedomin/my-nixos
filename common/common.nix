@@ -45,5 +45,5 @@
     # hashedPassword = "$6$nixosfuture$r9dQVUIrLEVqnKyLIDM90gdmLtxNzmPpocHuYIEQZSZymwzp6HcElKHiNRtShTt32Gkr31k55sqlzvN7aSwq20";
     shell = pkgs.zsh;
   };
-  nix.trustedUsers = [ "root" "adedomin" ];
+  nix.settings.trustedUsers = [ "root" "adedomin" ];
 }

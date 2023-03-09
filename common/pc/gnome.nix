@@ -26,7 +26,7 @@ in {
       gnome3.gnome-tweaks
     ];
     # for firefox integration
-    services.gnome.chrome-gnome-shell.enable = true;
+    services.gnome.gnome-browser-connector.enable = true;
 
     # Security
     services.gnome.gnome-keyring.enable = true;
