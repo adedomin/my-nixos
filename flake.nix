@@ -2,10 +2,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     home-manager.url = "github:nix-community/home-manager/release-22.11";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
   };
 
-  outputs = { nixpkgs, home-manager, nixos-wsl, ... }: {
+  outputs = { nixpkgs, home-manager, ... }: {
 
     nixosConfigurations =
       let
@@ -14,7 +13,6 @@
             inherit system;
             modules = [
               path
-              nixos-wsl.nixosModules.wsl
               ./common/common.nix
               home-manager.nixosModules.home-manager
               {
@@ -29,7 +27,15 @@
       {
         adedominic-Precision-5530 = mkSystem "x86_64-linux" nixpkgs ./machines/adedominic-Precision-5530/configuration.nix;
         smooth-operator = mkSystem "x86_64-linux" nixpkgs ./machines/smooth-operator/configuration.nix;
-        wsl2-vm-QC2H46P = mkSystem "x86_64-linux" nixpkgs ./machines/wsl2-vm-QC2H46P/configuration.nix;
       };
+    homeConfigurations = {
+      wsl2 = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          ./machines/wsl2/configuration.nix
+          ./home-manager/adedomin.nix
+        ];
+      };
+    };
   };
 }
