@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.zsh = {
@@ -18,12 +18,11 @@
     enableSyntaxHighlighting = true;
 
     shellAliases = {
-      clbin = "curl -F 'clbin=<-' https://clbin.com";
-      grep = "grep --color=auto";
-      "l." = "ls -d .*";
-      ll = "ls -l";
-      ls = "ls --classify --all --color=auto --hyperlink=auto --group-directories-first";
-      shrug = "xclip -i <<< '¯\_(ツ)_/¯'";
+      clbin = "${pkgs.curl}/bin/curl -F 'clbin=<-' https://clbin.com";
+      grep = "${pkgs.gnugrep}/bin/grep --color=auto";
+      "l." = "${pkgs.coreutils}/bin/ls -d .*";
+      ll = "${pkgs.coreutils}/bin/ls -l";
+      ls = "${pkgs.coreutils}/bin/ls --classify --all --color=auto --hyperlink=auto --group-directories-first";
     };
 
     initExtraFirst = ''
@@ -123,7 +122,7 @@
               integer untracked=0
               integer staged=0
               integer unstaged=0
-              git status --porcelain=v1 | \
+              ${pkgs.git}/bin/git status --porcelain=v1 | \
               while IFS= read -r st; do
                 case ''${st:0:2} in
                   '??') untracked+=1 ;;
@@ -156,7 +155,7 @@
     initExtra = ''
       [[ -z $LS_COLORS ]] && {
         # dircolors only supports some terminals, like xterm
-        eval "$(TERM=xterm-256color dircolors -b)"
+        eval "$(TERM=xterm-256color ${pkgs.coreutils}/bin/dircolors -b)"
       }
     '';
 

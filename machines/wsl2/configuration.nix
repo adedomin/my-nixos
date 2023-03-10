@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  home.username = "adedomin";
-  home.homeDirectory = "/home/adedomin";
-  home.stateVersion = "22.11"
-  programs.home-manager.enable = true;
-  home-manager.users.adedomin.git.email = "adedomin@gmail.com";
+  config = {
+    home.username = "adedomin";
+    home.homeDirectory = "/home/adedomin";
+
+    # options here, don't need any prefix, just <option>.etc = unlike nix-os configs.
+    git.email = "adedomin@gmail.com";
+  };
 }

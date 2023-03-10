@@ -18,7 +18,7 @@
   };
 
   config = {
-    home.stateVersion = "21.05";
+    home.stateVersion = "22.11";
     programs.git = {
       enable = true;
       userName = "Anthony DeDominic";
