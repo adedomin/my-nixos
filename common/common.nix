@@ -13,7 +13,7 @@
   ];
 
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "22.11";
 
   networking.useDHCP = false;
 

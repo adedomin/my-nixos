@@ -1,11 +1,20 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixos-wsl, ... }:
 
 {
-  config = {
-    home.username = "adedomin";
-    home.homeDirectory = "/home/adedomin";
+  imports = [
+    nixos-wsl.nixosModules.wsl
+  ];
 
-    # options here, don't need any prefix, just <option>.etc = unlike nix-os configs.
-    git.email = "adedomin@gmail.com";
-  };
+  binbash.enable = true;
+  nix.flakes.enable = true;
+  
+  wsl = {
+    enable = true;
+    wslConf.automount.root = "/mnt";
+    defaultUser = "adedomin";
+    startMenuLauncher = true;
+  }
+  wsl2.enable = true;
+
+  home-manager.users.adedomin.git.email = "adedomin@gmail.com";
 }
