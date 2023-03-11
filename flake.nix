@@ -32,7 +32,7 @@
         {
           adedominic-Precision-5530 = mkSystem "x86_64-linux" nixpkgs ./machines/adedominic-Precision-5530/configuration.nix;
           smooth-operator = mkSystem "x86_64-linux" nixpkgs ./machines/smooth-operator/configuration.nix;
-          wsl-os = mkSystem "x86_64-linux" nixpkgs ./machines/wsl2/configuration.nix
+          wsl-os = mkSystem "x86_64-linux" nixpkgs ./machines/wsl2/configuration.nix;
         };
 
     # This is primarily for environments like Windows, macOS or other linux distros.
