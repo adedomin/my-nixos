@@ -13,7 +13,8 @@
     wslConf.automount.root = "/mnt";
     defaultUser = "adedomin";
     startMenuLauncher = true;
-  }
+  };
+
   wsl2.enable = true;
 
   required.password = "$6$tybqoFUtJoqxmVHZ$/IO40qvuHqccLIr/OGqkWFA8q0rTjeiUhO1yNyT.Moobphmn/g9oByXNbALvDwo9M1rk4R.jBPFc3RuZDZLXH/"
