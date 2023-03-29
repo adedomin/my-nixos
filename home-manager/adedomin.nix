@@ -8,6 +8,7 @@
     programs/pass.nix
     programs/syncthing.nix
     programs/zsh.nix
+    programs/emacs.nix
   ];
 
   options.git = {
@@ -39,8 +40,7 @@
         pull.rebase = true;
         checkout.defaultRemote = "origin";
         init.defaultBranch = "release";
-	credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
-	core.editor = "${pkgs.neovim}/bin/nvim";
+        core.editor = "${pkgs.neovim}/bin/nvim";
       };
 
       attributes = [

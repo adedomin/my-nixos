@@ -9,7 +9,9 @@
     ./boot/efi.nix
     ./boot/wsl2.nix
     ./tinc.nix
+    ./fontconfig.nix
     ./pc/de.nix
+    ./programs/emacs.nix
   ];
 
 
